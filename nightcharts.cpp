@@ -330,7 +330,7 @@ int Nightcharts::draw(QPainter *painter)
 
 void Nightcharts::drawLegend(QPainter *painter)
 {
-    double ptext = 25;
+    //double ptext = 25;
     double angle = palpha;
     painter->setPen(Qt::SolidLine);
 
@@ -432,6 +432,8 @@ int Nightcharts::GetQuater(double angle)
         return 3;
     if(angle>=270 && angle<360)
         return 4;
+
+    return 0;
 }
 
 double Nightcharts::Angle360(double angle)
