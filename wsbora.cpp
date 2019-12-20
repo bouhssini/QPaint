@@ -1,5 +1,5 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "wsbora.h"
+#include "ui_wsbora.h"
 #include "nightcharts.h"
 #include <QFont>
 #include <QDebug>
@@ -7,8 +7,8 @@
 #include <QCursor>
 #include <QColorDialog>
 
-Dialog::Dialog(QWidget *parent) :  QDialog(parent),
-    ui(new Ui::Dialog),
+wSbora::wSbora(QWidget *parent) :  QWidget(parent),
+    ui(new Ui::wSbora),
     sel_B(false), sel_M(false),Dcopy(false),
     colorBackground(Qt::transparent),
     PicBackground(":/images/blackborad.png"),
@@ -32,15 +32,15 @@ Dialog::Dialog(QWidget *parent) :  QDialog(parent),
     ui->spinBox->setValue(PenSize);
 }
 
-void Dialog::paintEvent(QPaintEvent *e)
+void wSbora::paintEvent(QPaintEvent *e)
 {
 
 }
-Dialog::~Dialog()
+wSbora::~wSbora()
 {
     delete ui;
 }
-void Dialog::damj()
+void wSbora::damj()
 {
     QPixmap pixtmp = QPixmap(ui->label->width(),ui->label->height());
     pixtmp.fill(Qt::transparent);
@@ -52,7 +52,7 @@ void Dialog::damj()
     ui->label->setPixmap(pixtmp);
 }
 
-void Dialog::damjview(QByteArray bArray)
+void wSbora::damjview(QByteArray bArray)
 {
     QByteArray by = qUncompress(bArray);
     QPixmap p;
@@ -67,7 +67,7 @@ void Dialog::damjview(QByteArray bArray)
     ui->LaView->setPixmap(pixtmp);
 }
 
-void Dialog::clearpix()
+void wSbora::clearpix()
 {
     pix = QPixmap(ui->label->width(),ui->label->height());
     pix.fill(Qt::transparent);
@@ -77,7 +77,7 @@ void Dialog::clearpix()
     prss = false;
 }
 
-void Dialog::drawLine()
+void wSbora::drawLine()
 {
     pixsel = QPixmap(ui->label->width(),ui->label->height());
     pixsel.fill(Qt::transparent);
@@ -90,7 +90,7 @@ void Dialog::drawLine()
     painter.drawLine(x,y ,ui->label->x, ui->label->y);
     damj();
 }
-void Dialog::drawPen()
+void wSbora::drawPen()
 {
     QPainter painter;
     painter.begin(&pix);
@@ -103,7 +103,7 @@ void Dialog::drawPen()
     y = ui->label->y;
     damj();
 }
-void Dialog::drawSel()
+void wSbora::drawSel()
 {
     int     lb_x = ui->label->x ,
             lb_y = ui->label->y;
@@ -126,7 +126,7 @@ void Dialog::drawSel()
     y_tm=sel_y - PenSize;
     damj();
 }
-void Dialog::drawCls()
+void wSbora::drawCls()
 {
     QPainter painter;
     painter.begin(&pix);
@@ -138,7 +138,7 @@ void Dialog::drawCls()
     y = ui->label->y;
     damj();
 }
-void Dialog::drawMv()
+void wSbora::drawMv()
 {
     pixsel = QPixmap(ui->label->width(),ui->label->height());
     pixsel.fill(Qt::transparent);
@@ -158,7 +158,7 @@ void Dialog::drawMv()
     damj();
 }
 
-void Dialog::drawpip()
+void wSbora::drawpip()
 {
     QImage img = pix.toImage();
     x = ui->label->x;
@@ -169,7 +169,7 @@ void Dialog::drawpip()
 
 }
 
-void Dialog::drawFill()
+void wSbora::drawFill()
 {
     QColor switchColor = colorChoix;
     QImage img = pix.toImage();
@@ -188,7 +188,7 @@ void Dialog::drawFill()
     }
 }
 
-void Dialog::SetColorChoix(QColor co)
+void wSbora::SetColorChoix(QColor co)
 {
     colorChoix = co;
     QPixmap p = QPixmap(ui->lacolor->width(),ui->lacolor->height());
@@ -196,12 +196,12 @@ void Dialog::SetColorChoix(QColor co)
     ui->lacolor->setPixmap(p);
 }
 
-QColor Dialog::ColorChoix()
+QColor wSbora::ColorChoix()
 {
     return colorChoix;
 }
 
-void Dialog::on_label_mouse_Press()
+void wSbora::on_label_mouse_Press()
 {
     ui->label_3->setText("Press");
     prss = true;
@@ -209,7 +209,7 @@ void Dialog::on_label_mouse_Press()
     y = ui->label->y;
 
 }
-void Dialog::on_label_mouse_Move()
+void wSbora::on_label_mouse_Move()
 {
     ui->label_3->setText("Move");
     ui->label_2->setText(QString("x : %1 , y : %2")  .arg(ui->label->x)  .arg(ui->label->y));
@@ -239,7 +239,7 @@ void Dialog::on_label_mouse_Move()
         }
     }
 }
-void Dialog::on_label_mouse_Release()
+void wSbora::on_label_mouse_Release()
 {
     int n = PenSize *2;
     ui->label_3->setText("Release");
@@ -319,14 +319,14 @@ void Dialog::on_label_mouse_Release()
      }
     on_pushButton_5_clicked();
 }
-void Dialog::on_label_mouse_leave()
+void wSbora::on_label_mouse_leave()
 {
     ui->label_3->setText("leave");
     prss = false;
     sel_M = false;
 }
 
-void Dialog::on_pushButton_5_clicked()
+void wSbora::on_pushButton_5_clicked()
 {
     QCryptographicHash* hash;
     QByteArray bArray;
@@ -348,7 +348,7 @@ void Dialog::on_pushButton_5_clicked()
     damjview(by2);
 }
 
-void Dialog::on_mB_toggled(bool)
+void wSbora::on_mB_toggled(bool)
 {
     QToolButton* mB = dynamic_cast<QToolButton*>(sender());
     if (bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip" ){
@@ -368,17 +368,17 @@ void Dialog::on_mB_toggled(bool)
     damj();
 }
 
-void Dialog::on_pushButton_2_clicked()
+void wSbora::on_pushButton_2_clicked()
 {
     pix.save("gg."+imgType);
     clearpix();
 }
-void Dialog::on_pushButton_4_clicked()
+void wSbora::on_pushButton_4_clicked()
 {
     CancelSel();
 }
 
-void Dialog::CancelSel()
+void wSbora::CancelSel()
 {
     QPainter painter(&pix);
     painter.drawPixmap(x_tm,y_tm,tmp);
@@ -389,7 +389,7 @@ void Dialog::CancelSel()
     on_pushButton_5_clicked();
 }
 
-void Dialog::DeleteSel()
+void wSbora::DeleteSel()
 {
     pixsel.fill(Qt::transparent);
     mv_x = 0;mv_y = 0;
@@ -399,14 +399,14 @@ void Dialog::DeleteSel()
     on_pushButton_5_clicked();
 }
 
-void Dialog::on_lacolor_mouse_Press()
+void wSbora::on_lacolor_mouse_Press()
 {
     QColorDialog d;
     QColor c = d.getColor(ColorChoix());
     SetColorChoix(c);
 }
 
-void Dialog::fillRecurs(int x, int y, QRgb switchColor, QRgb oldColor, QImage &tempImage)
+void wSbora::fillRecurs(int x, int y, QRgb switchColor, QRgb oldColor, QImage &tempImage)
 {
     int temp_x(x), left_x(0);
     while(true)
@@ -453,7 +453,7 @@ void Dialog::fillRecurs(int x, int y, QRgb switchColor, QRgb oldColor, QImage &t
             fillRecurs(x_, y + 1, switchColor, oldColor, tempImage);
     }
 }
-bool Dialog::tstCus()
+bool wSbora::tstCus()
 {
     int     lb_x = ui->label->x ,
             lb_y = ui->label->y ;
@@ -465,7 +465,7 @@ bool Dialog::tstCus()
             return false;
         }
 }
-void Dialog::tstRec(int x1, int y1, int x2, int y2)
+void wSbora::tstRec(int x1, int y1, int x2, int y2)
 {
     sel_x = tstVal(x1,x2,false);
     sel_w = tstVal(x1,x2,true) - sel_x;
@@ -479,7 +479,7 @@ void Dialog::tstRec(int x1, int y1, int x2, int y2)
                          .arg(sel_h));
 }
 
-void Dialog::on_pushButton_clicked()
+void wSbora::on_pushButton_clicked()
 {
     //pix = QPixmap(ui->label->width(),ui->label->height());
     //pix.fill(colorBackground);//(Qt::white);//
@@ -503,12 +503,12 @@ void Dialog::on_pushButton_clicked()
     damj();
 }
 
-void Dialog::on_spinBox_valueChanged(int arg1)
+void wSbora::on_spinBox_valueChanged(int arg1)
 {
     PenSize = arg1;
 }
 
-void Dialog::on_pushButton_3_clicked()
+void wSbora::on_pushButton_3_clicked()
 {
     QPixmap page = QPixmap(":/images/c+.png");
     QPainter painter(&pix);
@@ -516,7 +516,7 @@ void Dialog::on_pushButton_3_clicked()
     damj();
 }
 
-void Dialog::on_label_key_Press(QKeyEvent *e)
+void wSbora::on_label_key_Press(QKeyEvent *e)
 {
     //qDebug() << "keyPressEvent:" << e->key();
     switch (e->key()) {
@@ -530,7 +530,7 @@ void Dialog::on_label_key_Press(QKeyEvent *e)
 
 }
 
-void Dialog::on_label_key_Release(QKeyEvent *e)
+void wSbora::on_label_key_Release(QKeyEvent *e)
 {
 
     //qDebug() << "keyReleaseEvent:" << e->key();

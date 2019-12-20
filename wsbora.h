@@ -1,20 +1,20 @@
-#ifndef DIALOG_H
-#define DIALOG_H
+#ifndef WSBORA_H
+#define WSBORA_H
 
-#include <QDialog>
+#include <QWidget>
 #include "nightcharts.h"
 
 namespace Ui {
-class Dialog;
+class wSbora;
 }
 
-class Dialog : public QDialog
+class wSbora : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Dialog(QWidget *parent = 0);
-    ~Dialog();
+    explicit wSbora(QWidget *parent = 0);
+    ~wSbora();
     inline int tstVal(int x,int y,bool b)
     {
         if (b){
@@ -45,7 +45,7 @@ public:
     void CancelSel();
 
 private:
-    Ui::Dialog *ui;
+    Ui::wSbora *ui;
     QPixmap pix,pixsel,tmp;
     int x,y;
     int sel_x,sel_y,sel_w,sel_h;
@@ -81,4 +81,4 @@ private slots:
     void on_label_key_Release(QKeyEvent *e);
 };
 
-#endif // DIALOG_H
+#endif // WSBORA_H

@@ -13,18 +13,20 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        dialog.cpp \
     nightcharts.cpp \
     my_qlabel.cpp \
-    form.cpp
+    form.cpp \
+    wsbora.cpp
 
-HEADERS  += dialog.h \
+HEADERS  += \
     nightcharts.h \
     my_qlabel.h \
-    form.h
+    form.h \
+    wsbora.h
 
-FORMS    += dialog.ui \
-    form.ui
+FORMS    += \
+    form.ui \
+    wsbora.ui
 
 RESOURCES += \
     res.qrc
