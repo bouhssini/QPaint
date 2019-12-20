@@ -1,4 +1,5 @@
 #include "dialog.h"
+#include "form.h"
 #include <QApplication>
 #include <QTextCodec>
 int main(int argc, char *argv[])

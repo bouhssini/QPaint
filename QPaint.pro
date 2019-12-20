@@ -15,13 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         dialog.cpp \
     nightcharts.cpp \
-    my_qlabel.cpp
+    my_qlabel.cpp \
+    form.cpp
 
 HEADERS  += dialog.h \
     nightcharts.h \
-    my_qlabel.h
+    my_qlabel.h \
+    form.h
 
-FORMS    += dialog.ui
+FORMS    += dialog.ui \
+    form.ui
 
 RESOURCES += \
     res.qrc

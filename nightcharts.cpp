@@ -328,7 +328,7 @@ int Nightcharts::draw(QPainter *painter)
     return 0;
 }
 
-int Nightcharts::drawLegend(QPainter *painter)
+void Nightcharts::drawLegend(QPainter *painter)
 {
     double ptext = 25;
     double angle = palpha;

@@ -36,3 +36,13 @@ void my_qlabel::leaveEvent(QEvent *event)
 {
     emit mouse_leave();
 }
+
+void my_qlabel::keyPressEvent(QKeyEvent *e)
+{
+    emit key_Press(e);
+}
+
+void my_qlabel::keyReleaseEvent(QKeyEvent *e)
+{
+    emit key_Release(e);
+}

@@ -26,7 +26,7 @@
 #include <QDebug>
 #include <QLinearGradient>
 #include <math.h>
-
+#include <QtGui>
 class pieceNC
 {
 public:
@@ -61,7 +61,7 @@ public:
     int setShadows(bool ok = true);
     int setFont(QFont f);
     int draw(QPainter *painter);
-    int drawLegend(QPainter *painter);
+    void drawLegend(QPainter *painter);
     double palpha;
 
 private:

@@ -17,11 +17,17 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void leaveEvent(QEvent *event);
+    void keyPressEvent(QKeyEvent *e);
+    void keyReleaseEvent(QKeyEvent *e);
+
 signals:
     void mouse_Press();
     void mouse_Move();
     void mouse_Release();
     void mouse_leave();
+
+    void key_Release(QKeyEvent*e);
+    void key_Press(QKeyEvent*e);
 
 public slots:
 

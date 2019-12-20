@@ -27,15 +27,22 @@ public:
 
     }
     void damj();
+    void damjview(QByteArray bArray);
     void clearpix();
     void drawPen();
+    void drawLine();
     void drawSel();
     void drawCls();
     void drawMv();
+    void drawpip();
     void drawFill();
     void fillRecurs(int x, int y, QRgb switchColor, QRgb oldColor, QImage &tempImage);
     bool tstCus();
     void tstRec(int x1,int y1,int x2,int y2);
+    void SetColorChoix(QColor co);
+    QColor ColorChoix();
+    void DeleteSel();
+    void CancelSel();
 
 private:
     Ui::Dialog *ui;
@@ -45,7 +52,12 @@ private:
     int mv_x,mv_y,x_tm,y_tm;
     bool prss,sel_B,sel_M,sel_S;
     QString bt_pres;
-    QColor colr;
+    QColor colorBackground;
+    QColor colorChoix;
+    QPixmap PicBackground;
+    QString imgType;
+    int PenSize;
+    bool Dcopy;
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -61,6 +73,12 @@ private slots:
 
     void on_pushButton_4_clicked();
     void on_pushButton_5_clicked();
+
+    void on_lacolor_mouse_Press();
+    void on_spinBox_valueChanged(int arg1);
+    void on_pushButton_3_clicked();
+    void on_label_key_Press(QKeyEvent *e);
+    void on_label_key_Release(QKeyEvent *e);
 };
 
 #endif // DIALOG_H

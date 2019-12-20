@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
+    <width>1440</width>
     <height>615</height>
    </rect>
   </property>
@@ -39,7 +39,7 @@
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>PushButton</string>
+       <string>مبيان</string>
       </property>
      </widget>
     </item>
@@ -59,7 +59,27 @@
     <item>
      <widget class="QPushButton" name="pushButton_2">
       <property name="text">
-       <string>PushButton</string>
+       <string>save</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="text">
+       <string>صفحة</string>
       </property>
      </widget>
     </item>
@@ -132,7 +152,42 @@
     <enum>QFrame::Raised</enum>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="4" column="2">
+     <widget class="QToolButton" name="mB_text">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>نص</string>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/images/instruments-icons/text.png</normaloff>:/images/instruments-icons/text.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="autoExclusive">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
      <widget class="QToolButton" name="mB_sel">
       <property name="minimumSize">
        <size>
@@ -150,6 +205,12 @@
        <iconset resource="res.qrc">
         <normaloff>:/images/instruments-icons/cursor.png</normaloff>:/images/instruments-icons/cursor.png</iconset>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
       <property name="checkable">
        <bool>true</bool>
       </property>
@@ -158,7 +219,7 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
+    <item row="0" column="0">
      <widget class="QToolButton" name="mB_cls">
       <property name="minimumSize">
        <size>
@@ -176,6 +237,12 @@
        <iconset resource="res.qrc">
         <normaloff>:/images/instruments-icons/lastic.png</normaloff>:/images/instruments-icons/lastic.png</iconset>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
       <property name="checkable">
        <bool>true</bool>
       </property>
@@ -185,58 +252,6 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QToolButton" name="mB_pip">
-      <property name="minimumSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>إلتقاط اللون</string>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-      <property name="icon">
-       <iconset resource="res.qrc">
-        <normaloff>:/images/instruments-icons/pipette.png</normaloff>:/images/instruments-icons/pipette.png</iconset>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QToolButton" name="mB_text">
-      <property name="minimumSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>نص</string>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-      <property name="icon">
-       <iconset resource="res.qrc">
-        <normaloff>:/images/instruments-icons/text.png</normaloff>:/images/instruments-icons/text.png</iconset>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
      <widget class="QToolButton" name="mB_pen">
       <property name="minimumSize">
        <size>
@@ -254,6 +269,12 @@
        <iconset resource="res.qrc">
         <normaloff>:/images/instruments-icons/pencil.png</normaloff>:/images/instruments-icons/pencil.png</iconset>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
       <property name="checkable">
        <bool>true</bool>
       </property>
@@ -265,8 +286,11 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QToolButton" name="mB_line">
+    <item row="2" column="2">
+     <widget class="QToolButton" name="mB_clip">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="minimumSize">
        <size>
         <width>32</width>
@@ -274,50 +298,36 @@
        </size>
       </property>
       <property name="toolTip">
-       <string>خط</string>
+       <string>دائرة</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="text">
        <string>...</string>
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
-        <normaloff>:/images/instruments-icons/line.png</normaloff>:/images/instruments-icons/line.png</iconset>
+        <normaloff>:/images/instruments-icons/ellipse.png</normaloff>:/images/instruments-icons/ellipse.png</iconset>
       </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QToolButton" name="mB_spr">
-      <property name="minimumSize">
+      <property name="iconSize">
        <size>
         <width>32</width>
         <height>32</height>
        </size>
       </property>
-      <property name="toolTip">
-       <string>رشاش</string>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-      <property name="icon">
-       <iconset resource="res.qrc">
-        <normaloff>:/images/instruments-icons/spray.png</normaloff>:/images/instruments-icons/spray.png</iconset>
-      </property>
       <property name="checkable">
        <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
       <property name="autoExclusive">
        <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="1" column="2">
      <widget class="QToolButton" name="mB_fill">
       <property name="minimumSize">
        <size>
@@ -335,6 +345,12 @@
        <iconset resource="res.qrc">
         <normaloff>:/images/instruments-icons/fill.png</normaloff>:/images/instruments-icons/fill.png</iconset>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
       <property name="checkable">
        <bool>true</bool>
       </property>
@@ -343,7 +359,7 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="2" column="0">
      <widget class="QToolButton" name="mB_rec">
       <property name="minimumSize">
        <size>
@@ -361,6 +377,12 @@
        <iconset resource="res.qrc">
         <normaloff>:/images/instruments-icons/rectangle.png</normaloff>:/images/instruments-icons/rectangle.png</iconset>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
       <property name="checkable">
        <bool>true</bool>
       </property>
@@ -369,8 +391,11 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QToolButton" name="mB_clip">
+    <item row="3" column="0">
+     <widget class="QToolButton" name="mB_line">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="minimumSize">
        <size>
         <width>32</width>
@@ -378,14 +403,90 @@
        </size>
       </property>
       <property name="toolTip">
-       <string>دائرة</string>
+       <string>خط</string>
       </property>
       <property name="text">
        <string>...</string>
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
-        <normaloff>:/images/instruments-icons/ellipse.png</normaloff>:/images/instruments-icons/ellipse.png</iconset>
+        <normaloff>:/images/instruments-icons/line.png</normaloff>:/images/instruments-icons/line.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="autoExclusive">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QToolButton" name="mB_pip">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>إلتقاط اللون</string>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/images/instruments-icons/pipette.png</normaloff>:/images/instruments-icons/pipette.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="autoExclusive">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QToolButton" name="mB_spr">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>رشاش</string>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/images/instruments-icons/spray.png</normaloff>:/images/instruments-icons/spray.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
       <property name="checkable">
        <bool>true</bool>
@@ -419,19 +520,6 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>310</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>PushButton</string>
-   </property>
-  </widget>
   <widget class="my_qlabel" name="label">
    <property name="geometry">
     <rect>
@@ -441,11 +529,17 @@
      <height>541</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
+   </property>
    <property name="mouseTracking">
     <bool>true</bool>
    </property>
    <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="frameShape">
     <enum>QFrame::Panel</enum>
@@ -527,17 +621,90 @@
     <string>new</string>
    </property>
   </widget>
-  <zorder>pushButton_3</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>frame</zorder>
-  <zorder>label_4</zorder>
-  <zorder>label</zorder>
-  <zorder>pushButton_4</zorder>
-  <zorder>pushButton_5</zorder>
-  <zorder>label_5</zorder>
-  <zorder>label_6</zorder>
+  <widget class="my_qlabel" name="lacolor">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>320</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="my_qlabel" name="LaView">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>10</y>
+     <width>691</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="text">
+    <string>Mouse Are</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>360</y>
+     <width>42</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -546,11 +713,13 @@
    <extends>QLabel</extends>
    <header location="global">my_qlabel.h</header>
    <slots>
+    <signal>mouse_paint()</signal>
     <signal>mouse_Press()</signal>
     <signal>mouse_Move()</signal>
     <signal>mouse_Release()</signal>
     <signal>mouse_leave()</signal>
-    <signal>mouse_paint()</signal>
+    <signal>key_Release(QKeyEvent*)</signal>
+    <signal>key_Press(QKeyEvent*)</signal>
    </slots>
   </customwidget>
  </customwidgets>

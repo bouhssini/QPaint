@@ -4,8 +4,16 @@
 #include <QFont>
 #include <QDebug>
 #include <QtGui>
+#include <QCursor>
+#include <QColorDialog>
 
-Dialog::Dialog(QWidget *parent) :  QDialog(parent), ui(new Ui::Dialog), sel_B(false), sel_M(false)
+Dialog::Dialog(QWidget *parent) :  QDialog(parent),
+    ui(new Ui::Dialog),
+    sel_B(false), sel_M(false),Dcopy(false),
+    colorBackground(Qt::transparent),
+    PicBackground(":/images/blackborad.png"),
+    imgType("png"),PenSize(6),
+    colorChoix(Qt::red)
 {
     ui->setupUi(this);
     connect(ui->mB_clip, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
@@ -20,8 +28,10 @@ Dialog::Dialog(QWidget *parent) :  QDialog(parent), ui(new Ui::Dialog), sel_B(fa
     connect(ui->mB_sel, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     clearpix();
     bt_pres = "mB_pen";
-    colr = Qt::white;
+    SetColorChoix(colorChoix);
+    ui->spinBox->setValue(PenSize);
 }
+
 void Dialog::paintEvent(QPaintEvent *e)
 {
 
@@ -35,26 +45,56 @@ void Dialog::damj()
     QPixmap pixtmp = QPixmap(ui->label->width(),ui->label->height());
     pixtmp.fill(Qt::transparent);
     QPainter painter(&pixtmp);
-    painter.setBrush(QBrush(QPixmap(":/images/trans.jpg")));
-    //painter.setBrush(Qt::white);
+    painter.setBrush(QBrush(PicBackground));
     painter.drawRect(0, 0,pix.width(),pix.height());
     painter.drawPixmap(0,0,pix);
     painter.drawPixmap(0,0,pixsel);
     ui->label->setPixmap(pixtmp);
 }
+
+void Dialog::damjview(QByteArray bArray)
+{
+    QByteArray by = qUncompress(bArray);
+    QPixmap p;
+    p.loadFromData(by,imgType.toStdString().c_str());
+    QPixmap pixtmp = QPixmap(ui->LaView->width(),ui->LaView->height());
+    pixtmp.fill(Qt::transparent);
+    QPainter painter(&pixtmp);
+    painter.setBrush(QBrush(PicBackground));
+    painter.drawRect(0, 0,p.width(),p.height());
+    painter.drawPixmap(0,0,p);
+    //painter.drawPixmap(0,0,pixsel);
+    ui->LaView->setPixmap(pixtmp);
+}
+
 void Dialog::clearpix()
 {
     pix = QPixmap(ui->label->width(),ui->label->height());
-    pix.fill(Qt::white);
+    pix.fill(Qt::transparent);
+    pixsel = pix.copy(0,0,pix.width(),pix.height());
     damj();
     x=0;y=0;
     prss = false;
+}
+
+void Dialog::drawLine()
+{
+    pixsel = QPixmap(ui->label->width(),ui->label->height());
+    pixsel.fill(Qt::transparent);
+    QPainter painter;
+    painter.begin(&pixsel);
+    painter.setPen(QPen(colorChoix,PenSize ,
+                        Qt::SolidLine,
+                        Qt::RoundCap,
+                        Qt::RoundJoin));
+    painter.drawLine(x,y ,ui->label->x, ui->label->y);
+    damj();
 }
 void Dialog::drawPen()
 {
     QPainter painter;
     painter.begin(&pix);
-    painter.setPen(QPen(Qt::red,6 ,
+    painter.setPen(QPen(colorChoix,PenSize ,
                         Qt::SolidLine,
                         Qt::RoundCap,
                         Qt::RoundJoin));
@@ -70,12 +110,20 @@ void Dialog::drawSel()
     pixsel = QPixmap(ui->label->width(),ui->label->height());
     pixsel.fill(Qt::transparent);
     QPainter painter(&pixsel);
-    painter.setPen(QPen(Qt::blue, 1, Qt::DashLine));
+    if(bt_pres == "mB_sel")
+        painter.setPen(QPen(Qt::blue, 1, Qt::DashLine));
+    else
+        painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
+
     painter.setBrush(Qt::NoBrush);
-    painter.drawRect(x, y,lb_x-x, lb_y-y);
+
+    if (bt_pres == "mB_clip")
+        painter.drawEllipse(x, y,lb_x-x, lb_y-y);
+    else
+        painter.drawRect(x, y,lb_x-x, lb_y-y);
     tstRec(x,y,lb_x,lb_y);
-    x_tm=sel_x;
-    y_tm=sel_y;
+    x_tm=sel_x - PenSize;
+    y_tm=sel_y - PenSize;
     damj();
 }
 void Dialog::drawCls()
@@ -83,7 +131,7 @@ void Dialog::drawCls()
     QPainter painter;
     painter.begin(&pix);
     painter.setCompositionMode(QPainter::CompositionMode_Source);
-    painter.setPen(QPen(colr,16 ,Qt::SolidLine ,Qt::RoundCap ,Qt::RoundJoin));
+    painter.setPen(QPen(colorBackground,PenSize ,Qt::SolidLine ,Qt::RoundCap ,Qt::RoundJoin));
     painter.drawLine(x,y ,ui->label->x, ui->label->y);
     painter.end();
     x = ui->label->x;
@@ -95,21 +143,35 @@ void Dialog::drawMv()
     pixsel = QPixmap(ui->label->width(),ui->label->height());
     pixsel.fill(Qt::transparent);
     QPainter painter(&pixsel);
-    x_tm = sel_x + (x - mv_x);
-    y_tm = sel_y + (y - mv_y);
+    x_tm = sel_x + (x - mv_x) - PenSize;
+    y_tm = sel_y + (y - mv_y) - PenSize;
     painter.drawPixmap(x_tm,y_tm,tmp);
-    painter.setPen(QPen(Qt::blue, 1, Qt::DashLine));
-    painter.setBrush(Qt::NoBrush);
-    painter.drawRect(x_tm,y_tm,sel_w,sel_h);
+
+    if(bt_pres == "mB_sel"){
+        painter.setPen(QPen(Qt::blue, 1, Qt::DashLine));
+        painter.setBrush(Qt::transparent);
+        painter.drawRect(x_tm,y_tm,sel_w,sel_h);
+    }
 
     x = ui->label->x;
     y = ui->label->y;
     damj();
 }
 
+void Dialog::drawpip()
+{
+    QImage img = pix.toImage();
+    x = ui->label->x;
+    y = ui->label->y;
+    QRgb pixel(img.pixel(x,y));
+    QColor tmpColor(pixel);
+    SetColorChoix(tmpColor);
+
+}
+
 void Dialog::drawFill()
 {
-    QColor switchColor = Qt::darkGreen;
+    QColor switchColor = colorChoix;
     QImage img = pix.toImage();
 
     x = ui->label->x;
@@ -124,6 +186,224 @@ void Dialog::drawFill()
         pix = QPixmap::fromImage(img);
         damj();
     }
+}
+
+void Dialog::SetColorChoix(QColor co)
+{
+    colorChoix = co;
+    QPixmap p = QPixmap(ui->lacolor->width(),ui->lacolor->height());
+    p.fill(colorChoix);
+    ui->lacolor->setPixmap(p);
+}
+
+QColor Dialog::ColorChoix()
+{
+    return colorChoix;
+}
+
+void Dialog::on_label_mouse_Press()
+{
+    ui->label_3->setText("Press");
+    prss = true;
+    x = ui->label->x;
+    y = ui->label->y;
+
+}
+void Dialog::on_label_mouse_Move()
+{
+    ui->label_3->setText("Move");
+    ui->label_2->setText(QString("x : %1 , y : %2")  .arg(ui->label->x)  .arg(ui->label->y));
+    if (prss){
+        if(bt_pres       == "mB_pen"){
+            drawPen();
+        }else if(bt_pres == "mB_line"){
+            drawLine();
+        }else if(bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip"){
+            if (sel_B){
+                sel_B = false;
+
+                if (tstCus()){
+                    mv_x = x + 1;
+                    mv_y = y + 1;
+                    sel_M = true;
+                }else{
+                    QPainter painter(&pix);
+                    painter.drawPixmap(x_tm,y_tm,tmp);
+                }
+            }else if(sel_M){
+                drawMv();
+            }else
+                drawSel();
+        }else if(bt_pres == "mB_cls"){
+            drawCls();
+        }
+    }
+}
+void Dialog::on_label_mouse_Release()
+{
+    int n = PenSize *2;
+    ui->label_3->setText("Release");
+    prss = false;
+    if (sel_M){
+        int xx = sel_x + (x - mv_x),yy = sel_y + (y - mv_y);
+        tstRec(xx,yy,sel_w+xx,sel_h+yy);
+    }
+
+    if (bt_pres == "mB_sel" && sel_B == false ){
+        sel_B = true;
+        if (sel_M == false){
+            tmp = pix.copy(sel_x,sel_y,sel_w,sel_h);
+
+            if (!Dcopy)
+            {
+                QPainter painter(&pix);
+                painter.setCompositionMode (QPainter::CompositionMode_Source);
+                painter.fillRect(sel_x,sel_y,sel_w,sel_h,colorBackground);
+                painter.setCompositionMode (QPainter::CompositionMode_SourceOver);
+            }
+//----------------إظهار التحديد ----------------
+            QPixmap tmp2 = pixsel;
+            QPainter painter2(&pixsel);
+            painter2.drawPixmap(sel_x,sel_y,tmp);
+            painter2.drawPixmap(0,0,tmp2);
+//-------------------------------------------------------
+
+            x_tm += PenSize;
+            y_tm += PenSize;
+        }
+    }
+    if (bt_pres == "mB_rec" && sel_B == false ){
+        sel_B = true;
+        if (sel_M == false){
+
+            tmp = QPixmap(sel_w+n,sel_h+n);
+            tmp.fill(Qt::transparent);
+            QPainter painter(&tmp);
+            painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
+            painter.setBrush(Qt::NoBrush);
+            painter.drawRect(PenSize,PenSize,sel_w,sel_h);
+            mv_x -=  PenSize;
+            mv_y -=  PenSize;
+        }
+    }
+    if (bt_pres == "mB_clip" && sel_B == false ){
+        sel_B = true;
+        if (sel_M == false){
+
+            tmp = pix.copy(sel_x,sel_y,sel_w+n,sel_h+n);
+            tmp.fill(Qt::transparent);
+            QPainter painter(&tmp);
+            painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
+            painter.setBrush(Qt::NoBrush);
+            painter.drawEllipse(PenSize,PenSize,sel_w,sel_h);
+            mv_x -=  PenSize;
+            mv_y -=  PenSize;
+        }
+    }
+    if (bt_pres == "mB_line" ){
+            QPainter painter(&pix);
+            painter.setPen(QPen(colorChoix,PenSize, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+            painter.drawLine(x,y ,ui->label->x, ui->label->y);
+            pixsel = QPixmap(ui->label->width(),ui->label->height());
+            pixsel.fill(Qt::transparent);
+    }
+
+
+    sel_M = false;
+
+    if (bt_pres == "mB_fill"){
+        drawFill();
+    }
+     if(bt_pres == "mB_pip"){
+         drawpip();
+     }
+    on_pushButton_5_clicked();
+}
+void Dialog::on_label_mouse_leave()
+{
+    ui->label_3->setText("leave");
+    prss = false;
+    sel_M = false;
+}
+
+void Dialog::on_pushButton_5_clicked()
+{
+    QCryptographicHash* hash;
+    QByteArray bArray;
+    QBuffer buffer( &bArray );
+    buffer.open( QIODevice::WriteOnly );
+    //pix.save( &buffer, imgType,9 );
+    QPixmap pixtmp = QPixmap(pix.width(),pix.height());
+    pixtmp.fill(Qt::transparent);
+    QPainter painter(&pixtmp);
+    painter.drawRect(0, 0,pix.width(),pix.height());
+    painter.drawPixmap(0,0,pix);
+    painter.drawPixmap(0,0,pixsel);
+    pixtmp.save( &buffer, imgType.toStdString().c_str(),9 );
+    //pix.loadFromData(bArray,imgType);
+    QByteArray by2 = qCompress(bArray,9); //qUncompress(by); //
+    QByteArray result = hash->hash(bArray,QCryptographicHash::Md5);
+    ui->label_5->setText(QString::number(bArray.size())+"  :  "+QString::number(by2.size()));
+    ui->label_6->setText(result.toHex());
+    damjview(by2);
+}
+
+void Dialog::on_mB_toggled(bool)
+{
+    QToolButton* mB = dynamic_cast<QToolButton*>(sender());
+    if (bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip" ){
+        QPainter painter(&pix);
+        painter.drawPixmap(x_tm,y_tm,tmp);
+        pixsel.fill(Qt::transparent);
+        mv_x = 0;mv_y = 0;
+        sel_M = false;sel_B = false;
+    }
+
+   // QCursor cursorTarget = QCursor(   mB->icon().pixmap(mB->icon().actualSize(QSize(64, 64))),-32,-32   );
+
+   // ui->label->setCursor(cursorTarget);
+
+    bt_pres = mB->objectName();
+    ui->label_3->setText(bt_pres);
+    damj();
+}
+
+void Dialog::on_pushButton_2_clicked()
+{
+    pix.save("gg."+imgType);
+    clearpix();
+}
+void Dialog::on_pushButton_4_clicked()
+{
+    CancelSel();
+}
+
+void Dialog::CancelSel()
+{
+    QPainter painter(&pix);
+    painter.drawPixmap(x_tm,y_tm,tmp);
+    pixsel.fill(Qt::transparent);
+    mv_x = 0;mv_y = 0;
+    sel_M = false;sel_B = false;
+    damj();
+    on_pushButton_5_clicked();
+}
+
+void Dialog::DeleteSel()
+{
+    pixsel.fill(Qt::transparent);
+    mv_x = 0;mv_y = 0;
+    sel_M = false;sel_B = false;
+    tmp.fill(Qt::transparent);
+    damj();
+    on_pushButton_5_clicked();
+}
+
+void Dialog::on_lacolor_mouse_Press()
+{
+    QColorDialog d;
+    QColor c = d.getColor(ColorChoix());
+    SetColorChoix(c);
 }
 
 void Dialog::fillRecurs(int x, int y, QRgb switchColor, QRgb oldColor, QImage &tempImage)
@@ -175,8 +455,8 @@ void Dialog::fillRecurs(int x, int y, QRgb switchColor, QRgb oldColor, QImage &t
 }
 bool Dialog::tstCus()
 {
-    int     lb_x = ui->label->x,
-            lb_y = ui->label->y;
+    int     lb_x = ui->label->x ,
+            lb_y = ui->label->y ;
 
     if (lb_x > sel_x && lb_x < sel_x + sel_w && lb_y > sel_y && lb_y < sel_y + sel_h)
         {
@@ -198,10 +478,12 @@ void Dialog::tstRec(int x1, int y1, int x2, int y2)
                          .arg(sel_w)
                          .arg(sel_h));
 }
+
 void Dialog::on_pushButton_clicked()
 {
-    pix = QPixmap(ui->label->width(),ui->label->height());
-    pix.fill(colr);//(Qt::white);//
+    //pix = QPixmap(ui->label->width(),ui->label->height());
+    //pix.fill(colorBackground);//(Qt::white);//
+    //pix.fill(Qt::transparent);
     QPainter painter(&pix);
 
     Nightcharts PieChart;
@@ -220,113 +502,48 @@ void Dialog::on_pushButton_clicked()
     PieChart.drawLegend(&painter);
     damj();
 }
-void Dialog::on_pushButton_2_clicked()
-{
-    pix.save("C:/Users/youssef/Desktop/untitled/gg.png");
-    clearpix();
-}
-void Dialog::on_label_mouse_Press()
-{
-    ui->label_3->setText("Press");
-    prss = true;
-    x = ui->label->x;
-    y = ui->label->y;
-}
-void Dialog::on_label_mouse_Move()
-{
-    ui->label_3->setText("Move");
-    ui->label_2->setText(QString("x : %1 , y : %2")
-                         .arg(ui->label->x)
-                         .arg(ui->label->y));
-    if (prss){
-        if(bt_pres == "mB_pen"){
-            drawPen();
-        }else if(bt_pres == "mB_sel"){
-            if (sel_B){
-                sel_B = false;
 
-                if (tstCus()){
-                    mv_x = x;
-                    mv_y = y;
-                    sel_M = true;
-                }else{
-                    QPainter painter(&pix);
-                    painter.drawPixmap(x_tm,y_tm,tmp);
-                }
-            }else if(sel_M){
-                drawMv();
-            }else
-                drawSel();
-        }else if(bt_pres == "mB_cls"){
-            drawCls();
-        }
-    }
-}
-void Dialog::on_label_mouse_Release()
+void Dialog::on_spinBox_valueChanged(int arg1)
 {
-    ui->label_3->setText("Release");
-    prss = false;
-    if (sel_M){
-        int xx = sel_x + (x - mv_x),yy = sel_y + (y - mv_y);
-        tstRec(xx,yy,sel_w+xx,sel_h+yy);
-    }
-
-    if (bt_pres == "mB_sel" && sel_B == false ){
-        sel_B = true;
-        if (sel_M == false){
-            tmp = pix.copy(sel_x,sel_y,sel_w,sel_h);
-            QPainter painter(&pix);
-            painter.setCompositionMode (QPainter::CompositionMode_Source);
-            painter.fillRect(sel_x,sel_y,sel_w,sel_h,colr);
-            painter.setCompositionMode (QPainter::CompositionMode_SourceOver);
-        }
-    }
-    sel_M = false;
-
-    if (bt_pres == "mB_fill"){
-        drawFill();
-    }
-
-    on_pushButton_5_clicked();
+    PenSize = arg1;
 }
-void Dialog::on_label_mouse_leave()
+
+void Dialog::on_pushButton_3_clicked()
 {
-    ui->label_3->setText("leave");
-    prss = false;
-}
-void Dialog::on_mB_toggled(bool)
-{
-    QToolButton* mB = dynamic_cast<QToolButton*>(sender());
-    if (bt_pres == "mB_sel"){
-        QPainter painter(&pix);
-        painter.drawPixmap(x_tm,y_tm,tmp);
-        pixsel.fill(Qt::transparent);
-        mv_x = 0;mv_y = 0;
-        sel_M = false;sel_B = false;
-    }
-    bt_pres = mB->objectName();
-    ui->label_3->setText(bt_pres);
+    QPixmap page = QPixmap(":/images/c+.png");
+    QPainter painter(&pix);
+    painter.drawPixmap(0,0,page.copy(0,0,pix.width(),pix.height()));
     damj();
 }
-void Dialog::on_pushButton_4_clicked()
-{
-    pixsel.fill(Qt::transparent);
-    mv_x = 0;mv_y = 0;
-    sel_M = false;sel_B = false;
-    tmp.fill(Qt::transparent);
-    damj();
-}
-void Dialog::on_pushButton_5_clicked()
-{
-    QCryptographicHash* hash;
-    QByteArray bArray;
-    QBuffer buffer( &bArray );
-    buffer.open( QIODevice::WriteOnly );
-    pix.save( &buffer, "PNG",0 );
-    //pix.loadFromData(bArray,"PNG");
-    QByteArray by2 = qCompress(bArray,9); //qUncompress(by); //
-    QByteArray result = hash->hash(bArray,QCryptographicHash::Md5);
-    ui->label_5->setText(QString::number(bArray.size())+"  :  "+QString::number(by2.size()));
 
-    ui->label_6->setText(result.toHex());
+void Dialog::on_label_key_Press(QKeyEvent *e)
+{
+    //qDebug() << "keyPressEvent:" << e->key();
+    switch (e->key()) {
+    case Qt::Key_Alt:
+         Dcopy = true;
+        break;
+    default:
+        Dcopy = false;
+        break;
+    }
+
+}
+
+void Dialog::on_label_key_Release(QKeyEvent *e)
+{
+
+    //qDebug() << "keyReleaseEvent:" << e->key();
+    Dcopy = false;
+    switch (e->key()) {
+    case Qt::Key_Delete:
+         DeleteSel();
+        break;
+    case Qt::Key_Escape:
+         CancelSel();
+        break;
+    default:
+        Dcopy = false;
+        break;
+    }
 }
