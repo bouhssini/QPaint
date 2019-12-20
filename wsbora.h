@@ -43,6 +43,7 @@ public:
     QColor ColorChoix();
     void DeleteSel();
     void CancelSel();
+    void MByan();
 
 private:
     Ui::wSbora *ui;
@@ -63,22 +64,24 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private slots:
-    void on_pushButton_clicked();
+    void on_mB_toggled(bool);
+
     void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();
+    void on_pushButton_4_clicked();
+    void on_pushButton_5_clicked();
+
     void on_label_mouse_Press();
     void on_label_mouse_Move();
     void on_label_mouse_Release();
     void on_label_mouse_leave();
-    void on_mB_toggled(bool);
-
-    void on_pushButton_4_clicked();
-    void on_pushButton_5_clicked();
+    void on_label_key_Press(QKeyEvent *e);
+    void on_label_key_Release(QKeyEvent *e);
 
     void on_lacolor_mouse_Press();
     void on_spinBox_valueChanged(int arg1);
-    void on_pushButton_3_clicked();
-    void on_label_key_Press(QKeyEvent *e);
-    void on_label_key_Release(QKeyEvent *e);
+
+    void on_mB_mbyan_clicked();
 };
 
 #endif // WSBORA_H

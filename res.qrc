@@ -18,9 +18,11 @@
         <file>images/instruments-icons/rectangle.png</file>
         <file>images/instruments-icons/spray.png</file>
         <file>images/instruments-icons/text.png</file>
-        <file>images/c+.png</file>
         <file>images/blackborad.png</file>
         <file>images/you.png</file>
         <file>images/y.png</file>
+        <file>images/instruments-icons/mbyan.png</file>
+        <file>images/instruments-icons/sel.png</file>
+        <file>images/page.jpg</file>
     </qresource>
 </RCC>

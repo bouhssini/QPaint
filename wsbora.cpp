@@ -17,29 +17,81 @@ wSbora::wSbora(QWidget *parent) :  QWidget(parent),
 {
     ui->setupUi(this);
     connect(ui->mB_clip, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_cls, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_pen, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_cls, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_pen, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_text, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_fill, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_line, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_pip, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_spr, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_rec, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_sel, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_pip, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_spr, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_rec, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_sel, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_mv, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+
+
     clearpix();
     bt_pres = "mB_pen";
     SetColorChoix(colorChoix);
     ui->spinBox->setValue(PenSize);
 }
 
+void wSbora::on_mB_toggled(bool)
+{
+    ui->label->setFocus();
+    QToolButton* mB = dynamic_cast<QToolButton*>(sender());
+    if (bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip" ){
+        QPainter painter(&pix);
+        painter.drawPixmap(x_tm,y_tm,tmp);
+        pixsel.fill(Qt::transparent);
+        mv_x = 0;mv_y = 0;
+        sel_M = false;sel_B = false;
+    }
+   // QCursor cursorTarget = QCursor(   mB->icon().pixmap(mB->icon().actualSize(QSize(64, 64))),-32,-32   );
+   // ui->label->setCursor(cursorTarget);
+    bt_pres = mB->objectName();
+    ui->label_3->setText(bt_pres);
+    damj();
+}
+void wSbora::on_mB_mbyan_clicked()
+{
+     MByan();
+}
+
 void wSbora::paintEvent(QPaintEvent *e)
 {
 
 }
+
 wSbora::~wSbora()
 {
     delete ui;
 }
+
+void wSbora::MByan()
+{
+    //pix = QPixmap(ui->label->width(),ui->label->height());
+    //pix.fill(colorBackground);//(Qt::white);//
+    //pix.fill(Qt::transparent);
+    QPainter painter(&pix);
+
+    Nightcharts PieChart;
+
+    PieChart.setType(Nightcharts::Dpie);//{Histogramm,Pie,Dpie};
+    PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical,Horizontal}
+    PieChart.setCords(120,50,ui->label->width()/2,ui->label->height()/3);
+    PieChart.addPiece("المجموع العام السنوي",QColor(150,10,50),44);
+    PieChart.addPiece("علي",Qt::green,27);
+    PieChart.addPiece("كمال",Qt::cyan,4);
+    PieChart.addPiece("عمر",Qt::yellow,7);
+    PieChart.addPiece("ابو بكر",Qt::blue,4);
+    PieChart.addPiece("طلحة",Qt::red,14);
+    //PieChart.setShadows(false);
+    PieChart.draw(&painter);
+    PieChart.drawLegend(&painter);
+    damj();
+    on_pushButton_5_clicked();
+}
+
 void wSbora::damj()
 {
     QPixmap pixtmp = QPixmap(ui->label->width(),ui->label->height());
@@ -111,16 +163,21 @@ void wSbora::drawSel()
     pixsel.fill(Qt::transparent);
     QPainter painter(&pixsel);
     if(bt_pres == "mB_sel")
-        painter.setPen(QPen(Qt::blue, 1, Qt::DashLine));
+        painter.setPen(QPen(Qt::white, 1, Qt::DashLine));
     else
         painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
 
-    painter.setBrush(Qt::NoBrush);
+   // painter.setBrush(Qt::NoBrush);
 
     if (bt_pres == "mB_clip")
         painter.drawEllipse(x, y,lb_x-x, lb_y-y);
-    else
+    else if (bt_pres == "mB_sel"){
         painter.drawRect(x, y,lb_x-x, lb_y-y);
+        painter.setPen(QPen(Qt::black, 1, Qt::DashLine));
+        painter.drawRect(x+1, y+1,lb_x-x-2, lb_y-y-2);
+    }else
+        painter.drawRect(x, y,lb_x-x, lb_y-y);
+
     tstRec(x,y,lb_x,lb_y);
     x_tm=sel_x - PenSize;
     y_tm=sel_y - PenSize;
@@ -148,9 +205,11 @@ void wSbora::drawMv()
     painter.drawPixmap(x_tm,y_tm,tmp);
 
     if(bt_pres == "mB_sel"){
-        painter.setPen(QPen(Qt::blue, 1, Qt::DashLine));
+        painter.setPen(QPen(Qt::white, 1, Qt::DashLine));
         painter.setBrush(Qt::transparent);
         painter.drawRect(x_tm,y_tm,sel_w,sel_h);
+        painter.setPen(QPen(Qt::black, 1, Qt::DashLine));
+        painter.drawRect(x_tm+1,y_tm+1,sel_w-2,sel_h-2);
     }
 
     x = ui->label->x;
@@ -341,31 +400,13 @@ void wSbora::on_pushButton_5_clicked()
     painter.drawPixmap(0,0,pixsel);
     pixtmp.save( &buffer, imgType.toStdString().c_str(),9 );
     //pix.loadFromData(bArray,imgType);
+
     QByteArray by2 = qCompress(bArray,9); //qUncompress(by); //
     QByteArray result = hash->hash(bArray,QCryptographicHash::Md5);
     ui->label_5->setText(QString::number(bArray.size())+"  :  "+QString::number(by2.size()));
     ui->label_6->setText(result.toHex());
+    buffer.close();
     damjview(by2);
-}
-
-void wSbora::on_mB_toggled(bool)
-{
-    QToolButton* mB = dynamic_cast<QToolButton*>(sender());
-    if (bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip" ){
-        QPainter painter(&pix);
-        painter.drawPixmap(x_tm,y_tm,tmp);
-        pixsel.fill(Qt::transparent);
-        mv_x = 0;mv_y = 0;
-        sel_M = false;sel_B = false;
-    }
-
-   // QCursor cursorTarget = QCursor(   mB->icon().pixmap(mB->icon().actualSize(QSize(64, 64))),-32,-32   );
-
-   // ui->label->setCursor(cursorTarget);
-
-    bt_pres = mB->objectName();
-    ui->label_3->setText(bt_pres);
-    damj();
 }
 
 void wSbora::on_pushButton_2_clicked()
@@ -479,30 +520,6 @@ void wSbora::tstRec(int x1, int y1, int x2, int y2)
                          .arg(sel_h));
 }
 
-void wSbora::on_pushButton_clicked()
-{
-    //pix = QPixmap(ui->label->width(),ui->label->height());
-    //pix.fill(colorBackground);//(Qt::white);//
-    //pix.fill(Qt::transparent);
-    QPainter painter(&pix);
-
-    Nightcharts PieChart;
-
-    PieChart.setType(Nightcharts::Dpie);//{Histogramm,Pie,Dpie};
-    PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical,Horizontal}
-    PieChart.setCords(120,50,ui->label->width()/2,ui->label->height()/3);
-    PieChart.addPiece("المجموع العام السنوي",QColor(150,10,50),44);
-    PieChart.addPiece("علي",Qt::green,27);
-    PieChart.addPiece("كمال",Qt::cyan,4);
-    PieChart.addPiece("عمر",Qt::yellow,7);
-    PieChart.addPiece("ابو بكر",Qt::blue,4);
-    PieChart.addPiece("طلحة",Qt::red,14);
-    //PieChart.setShadows(false);
-    PieChart.draw(&painter);
-    PieChart.drawLegend(&painter);
-    damj();
-}
-
 void wSbora::on_spinBox_valueChanged(int arg1)
 {
     PenSize = arg1;
@@ -510,7 +527,7 @@ void wSbora::on_spinBox_valueChanged(int arg1)
 
 void wSbora::on_pushButton_3_clicked()
 {
-    QPixmap page = QPixmap(":/images/c+.png");
+    QPixmap page = QPixmap(":/images/page.jpg");
     QPainter painter(&pix);
     painter.drawPixmap(0,0,page.copy(0,0,pix.width(),pix.height()));
     damj();
@@ -547,3 +564,7 @@ void wSbora::on_label_key_Release(QKeyEvent *e)
         break;
     }
 }
+
+
+
+
