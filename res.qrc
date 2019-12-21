@@ -24,5 +24,7 @@
         <file>images/instruments-icons/mbyan.png</file>
         <file>images/instruments-icons/sel.png</file>
         <file>images/page.jpg</file>
+        <file>images/instruments-icons/page.png</file>
+        <file>images/instruments-icons/clear.png</file>
     </qresource>
 </RCC>

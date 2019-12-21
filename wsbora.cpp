@@ -7,26 +7,24 @@
 #include <QCursor>
 #include <QColorDialog>
 
-wSbora::wSbora(QWidget *parent) :  QWidget(parent),
-    ui(new Ui::wSbora),
-    sel_B(false), sel_M(false),Dcopy(false),
-    colorBackground(Qt::transparent),
-    PicBackground(":/images/blackborad.png"),
-    imgType("png"),PenSize(6),
-    colorChoix(Qt::red)
+wSbora::wSbora(QWidget *parent): QWidget(parent),
+    ui(new Ui::wSbora), sel_B(false), sel_M(false),Dcopy(false),
+    colorBackground(Qt::transparent), PicBackground(":/images/blackborad.png"),
+    imgType("png"),PenSize(6), colorChoix(Qt::red)
 {
     ui->setupUi(this);
     connect(ui->mB_clip, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_cls, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_pen, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_cls,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_pen,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_text, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_fill, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_line, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_pip, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_spr, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_rec, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_sel, SIGNAL(toggled(bool)),  this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_mv, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_pip,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_spr,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_rec,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_sel,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_mv,   SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
+    connect(ui->mB_page, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
 
 
     clearpix();
@@ -39,6 +37,8 @@ void wSbora::on_mB_toggled(bool)
 {
     ui->label->setFocus();
     QToolButton* mB = dynamic_cast<QToolButton*>(sender());
+    bt_pres = mB->objectName();
+    ui->label_3->setText(bt_pres);
     if (bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip" ){
         QPainter painter(&pix);
         painter.drawPixmap(x_tm,y_tm,tmp);
@@ -46,15 +46,24 @@ void wSbora::on_mB_toggled(bool)
         mv_x = 0;mv_y = 0;
         sel_M = false;sel_B = false;
     }
+    if (bt_pres == "mB_page"){
+        QPixmap page = QPixmap(":/images/page.jpg");
+        QPainter painter(&pix);
+        painter.drawPixmap(0,0,page.copy(0,0,pix.width(),pix.height()));
+    }
+
    // QCursor cursorTarget = QCursor(   mB->icon().pixmap(mB->icon().actualSize(QSize(64, 64))),-32,-32   );
    // ui->label->setCursor(cursorTarget);
-    bt_pres = mB->objectName();
-    ui->label_3->setText(bt_pres);
+
     damj();
 }
 void wSbora::on_mB_mbyan_clicked()
 {
      MByan();
+}
+void wSbora::on_mB_clear_clicked()
+{
+    clearpix();
 }
 
 void wSbora::paintEvent(QPaintEvent *e)
@@ -69,9 +78,11 @@ wSbora::~wSbora()
 
 void wSbora::MByan()
 {
+    /*
     //pix = QPixmap(ui->label->width(),ui->label->height());
     //pix.fill(colorBackground);//(Qt::white);//
     //pix.fill(Qt::transparent);
+    */
     QPainter painter(&pix);
 
     Nightcharts PieChart;
@@ -89,7 +100,15 @@ void wSbora::MByan()
     PieChart.draw(&painter);
     PieChart.drawLegend(&painter);
     damj();
-    on_pushButton_5_clicked();
+    ProssRun();
+}
+
+int wSbora::calsize()
+{
+    int sz = 1;
+    if (bt_pres == "mB_sel") sz = 1;
+    else sz = PenSize;
+    return sz;
 }
 
 void wSbora::damj()
@@ -123,10 +142,14 @@ void wSbora::clearpix()
 {
     pix = QPixmap(ui->label->width(),ui->label->height());
     pix.fill(Qt::transparent);
-    pixsel = pix.copy(0,0,pix.width(),pix.height());
+    pixsel = pix.copy(0, 0, pix.width(), pix.height());
+    tmp = pixsel;
+    mv_x = 0;mv_y = 0;
+    sel_M = false;sel_B = false;
     damj();
     x=0;y=0;
     prss = false;
+    ProssRun();
 }
 
 void wSbora::drawLine()
@@ -135,10 +158,7 @@ void wSbora::drawLine()
     pixsel.fill(Qt::transparent);
     QPainter painter;
     painter.begin(&pixsel);
-    painter.setPen(QPen(colorChoix,PenSize ,
-                        Qt::SolidLine,
-                        Qt::RoundCap,
-                        Qt::RoundJoin));
+    painter.setPen(QPen(colorChoix,PenSize, Qt::SolidLine,   Qt::RoundCap,  Qt::RoundJoin));
     painter.drawLine(x,y ,ui->label->x, ui->label->y);
     damj();
 }
@@ -179,8 +199,11 @@ void wSbora::drawSel()
         painter.drawRect(x, y,lb_x-x, lb_y-y);
 
     tstRec(x,y,lb_x,lb_y);
-    x_tm=sel_x - PenSize;
-    y_tm=sel_y - PenSize;
+
+
+
+    x_tm=sel_x - calsize();
+    y_tm=sel_y - calsize();
     damj();
 }
 void wSbora::drawCls()
@@ -200,8 +223,8 @@ void wSbora::drawMv()
     pixsel = QPixmap(ui->label->width(),ui->label->height());
     pixsel.fill(Qt::transparent);
     QPainter painter(&pixsel);
-    x_tm = sel_x + (x - mv_x) - PenSize;
-    y_tm = sel_y + (y - mv_y) - PenSize;
+    x_tm = sel_x + (x - mv_x) - calsize();
+    y_tm = sel_y + (y - mv_y) - calsize();
     painter.drawPixmap(x_tm,y_tm,tmp);
 
     if(bt_pres == "mB_sel"){
@@ -214,7 +237,15 @@ void wSbora::drawMv()
 
     x = ui->label->x;
     y = ui->label->y;
+
     damj();
+}
+
+void wSbora::drawMvPage()
+{
+    page = QPixmap(ui->label->width(),ui->label->height());
+    page.fill(Qt::transparent);
+
 }
 
 void wSbora::drawpip()
@@ -282,8 +313,8 @@ void wSbora::on_label_mouse_Move()
                 sel_B = false;
 
                 if (tstCus()){
-                    mv_x = x + 1;
-                    mv_y = y + 1;
+                    mv_x = x ;
+                    mv_y = y;
                     sel_M = true;
                 }else{
                     QPainter painter(&pix);
@@ -300,7 +331,7 @@ void wSbora::on_label_mouse_Move()
 }
 void wSbora::on_label_mouse_Release()
 {
-    int n = PenSize *2;
+    int n = calsize() *2;
     ui->label_3->setText("Release");
     prss = false;
     if (sel_M){
@@ -327,8 +358,8 @@ void wSbora::on_label_mouse_Release()
             painter2.drawPixmap(0,0,tmp2);
 //-------------------------------------------------------
 
-            x_tm += PenSize;
-            y_tm += PenSize;
+            x_tm += calsize();
+            y_tm += calsize();
         }
     }
     if (bt_pres == "mB_rec" && sel_B == false ){
@@ -341,8 +372,8 @@ void wSbora::on_label_mouse_Release()
             painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
             painter.setBrush(Qt::NoBrush);
             painter.drawRect(PenSize,PenSize,sel_w,sel_h);
-            mv_x -=  PenSize;
-            mv_y -=  PenSize;
+            mv_x -=  calsize();
+            mv_y -=  calsize();
         }
     }
     if (bt_pres == "mB_clip" && sel_B == false ){
@@ -355,8 +386,8 @@ void wSbora::on_label_mouse_Release()
             painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
             painter.setBrush(Qt::NoBrush);
             painter.drawEllipse(PenSize,PenSize,sel_w,sel_h);
-            mv_x -=  PenSize;
-            mv_y -=  PenSize;
+            mv_x -=  calsize();
+            mv_y -=  calsize();
         }
     }
     if (bt_pres == "mB_line" ){
@@ -376,7 +407,7 @@ void wSbora::on_label_mouse_Release()
      if(bt_pres == "mB_pip"){
          drawpip();
      }
-    on_pushButton_5_clicked();
+    ProssRun();
 }
 void wSbora::on_label_mouse_leave()
 {
@@ -385,9 +416,8 @@ void wSbora::on_label_mouse_leave()
     sel_M = false;
 }
 
-void wSbora::on_pushButton_5_clicked()
+void wSbora::ProssRun()
 {
-    QCryptographicHash* hash;
     QByteArray bArray;
     QBuffer buffer( &bArray );
     buffer.open( QIODevice::WriteOnly );
@@ -402,21 +432,12 @@ void wSbora::on_pushButton_5_clicked()
     //pix.loadFromData(bArray,imgType);
 
     QByteArray by2 = qCompress(bArray,9); //qUncompress(by); //
-    QByteArray result = hash->hash(bArray,QCryptographicHash::Md5);
+
+    QByteArray result = QCryptographicHash::hash(bArray,QCryptographicHash::Md5);
     ui->label_5->setText(QString::number(bArray.size())+"  :  "+QString::number(by2.size()));
     ui->label_6->setText(result.toHex());
     buffer.close();
     damjview(by2);
-}
-
-void wSbora::on_pushButton_2_clicked()
-{
-    pix.save("gg."+imgType);
-    clearpix();
-}
-void wSbora::on_pushButton_4_clicked()
-{
-    CancelSel();
 }
 
 void wSbora::CancelSel()
@@ -427,7 +448,7 @@ void wSbora::CancelSel()
     mv_x = 0;mv_y = 0;
     sel_M = false;sel_B = false;
     damj();
-    on_pushButton_5_clicked();
+    ProssRun();
 }
 
 void wSbora::DeleteSel()
@@ -437,7 +458,7 @@ void wSbora::DeleteSel()
     sel_M = false;sel_B = false;
     tmp.fill(Qt::transparent);
     damj();
-    on_pushButton_5_clicked();
+    ProssRun();
 }
 
 void wSbora::on_lacolor_mouse_Press()
@@ -505,6 +526,7 @@ bool wSbora::tstCus()
         }else{
             return false;
         }
+    return false;
 }
 void wSbora::tstRec(int x1, int y1, int x2, int y2)
 {
@@ -525,13 +547,6 @@ void wSbora::on_spinBox_valueChanged(int arg1)
     PenSize = arg1;
 }
 
-void wSbora::on_pushButton_3_clicked()
-{
-    QPixmap page = QPixmap(":/images/page.jpg");
-    QPainter painter(&pix);
-    painter.drawPixmap(0,0,page.copy(0,0,pix.width(),pix.height()));
-    damj();
-}
 
 void wSbora::on_label_key_Press(QKeyEvent *e)
 {
@@ -566,5 +581,13 @@ void wSbora::on_label_key_Release(QKeyEvent *e)
 }
 
 
+void wSbora::on_B_save_clicked()
+{
+    pix.save("gg."+imgType);
+    clearpix();
+}
 
-
+void wSbora::on_B_hash_clicked()
+{
+    ProssRun();
+}

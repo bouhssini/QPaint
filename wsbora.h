@@ -15,6 +15,7 @@ class wSbora : public QWidget
 public:
     explicit wSbora(QWidget *parent = 0);
     ~wSbora();
+private:
     inline int tstVal(int x,int y,bool b)
     {
         if (b){
@@ -34,6 +35,7 @@ public:
     void drawSel();
     void drawCls();
     void drawMv();
+    void drawMvPage();
     void drawpip();
     void drawFill();
     void fillRecurs(int x, int y, QRgb switchColor, QRgb oldColor, QImage &tempImage);
@@ -44,6 +46,8 @@ public:
     void DeleteSel();
     void CancelSel();
     void MByan();
+    int calsize();
+    void ProssRun();
 
 private:
     Ui::wSbora *ui;
@@ -59,17 +63,15 @@ private:
     QString imgType;
     int PenSize;
     bool Dcopy;
+    QPixmap page;
+    int x_pg,y_pg;
+
 
 protected:
     void paintEvent(QPaintEvent *event);
 
 private slots:
     void on_mB_toggled(bool);
-
-    void on_pushButton_2_clicked();
-    void on_pushButton_3_clicked();
-    void on_pushButton_4_clicked();
-    void on_pushButton_5_clicked();
 
     void on_label_mouse_Press();
     void on_label_mouse_Move();
@@ -82,6 +84,9 @@ private slots:
     void on_spinBox_valueChanged(int arg1);
 
     void on_mB_mbyan_clicked();
+    void on_mB_clear_clicked();
+    void on_B_save_clicked();
+    void on_B_hash_clicked();
 };
 
 #endif // WSBORA_H
