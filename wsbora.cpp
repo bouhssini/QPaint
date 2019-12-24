@@ -39,10 +39,11 @@ void wSbora::on_mB_toggled(bool)
     QToolButton* mB = dynamic_cast<QToolButton*>(sender());
     bt_pres = mB->objectName();
     ui->label_3->setText(bt_pres);
-    if (bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip" ){
+    if (bt_pres == "mB_cls" || bt_pres == "mB_sel" || bt_pres == "mB_rec" || bt_pres == "mB_clip" ){
         QPainter painter(&pix);
         painter.drawPixmap(x_tm,y_tm,tmp);
         pixsel.fill(Qt::transparent);
+        tmp = pixsel;
         mv_x = 0;mv_y = 0;
         sel_M = false;sel_B = false;
     }
