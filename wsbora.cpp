@@ -87,21 +87,31 @@ void wSbora::MByan()
     QPainter painter(&pix);
 
     Nightcharts PieChart;
+    int alfa = 200;
+
 
     PieChart.setType(Nightcharts::Dpie);//{Histogramm,Pie,Dpie};
     PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical,Horizontal}
     PieChart.setCords(120,50,ui->label->width()/2,ui->label->height()/3);
-    PieChart.addPiece("المجموع العام السنوي",QColor(150,10,50),44);
-    PieChart.addPiece("علي",Qt::green,27);
-    PieChart.addPiece("كمال",Qt::cyan,4);
-    PieChart.addPiece("عمر",Qt::yellow,7);
-    PieChart.addPiece("ابو بكر",Qt::blue,4);
-    PieChart.addPiece("طلحة",Qt::red,14);
-    //PieChart.setShadows(false);
+    PieChart.setFont(QFont("Tahoma"));
+    PieChart.addPiece("المجموع العام السنوي", coloralfa( Qt::darkRed,alfa)  ,30);
+    PieChart.addPiece("علي",coloralfa( Qt::green,alfa),27);
+    PieChart.addPiece("كمال", coloralfa( Qt::cyan,alfa)   ,4);
+    PieChart.addPiece("عمر", coloralfa( Qt::yellow,alfa) ,7);
+    PieChart.addPiece("ابو بكر", coloralfa( Qt::blue,alfa) ,4);
+    PieChart.addPiece("طلحة", coloralfa( Qt::red,alfa) ,14);
+    PieChart.addPiece("ياسين", coloralfa( Qt::lightGray,alfa) ,14);
+
+    PieChart.setShadows(false);
     PieChart.draw(&painter);
     PieChart.drawLegend(&painter);
     damj();
     ProssRun();
+}
+QColor wSbora::coloralfa(QColor co, int alfa)
+{
+    co.setAlpha(alfa);
+    return co;
 }
 
 int wSbora::calsize()
@@ -441,6 +451,8 @@ void wSbora::ProssRun()
     damjview(by2);
 }
 
+
+
 void wSbora::CancelSel()
 {
     QPainter painter(&pix);
@@ -466,6 +478,7 @@ void wSbora::on_lacolor_mouse_Press()
 {
     QColorDialog d;
     QColor c = d.getColor(ColorChoix());
+    c = coloralfa(c,128);
     SetColorChoix(c);
 }
 

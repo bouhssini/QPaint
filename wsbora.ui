@@ -10,14 +10,11 @@
     <height>615</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>wSbora</string>
-  </property>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>570</y>
+     <x>40</x>
+     <y>560</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -35,8 +32,8 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>570</y>
+     <x>170</x>
+     <y>560</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -606,7 +603,7 @@
   <widget class="QPushButton" name="B_hash">
    <property name="geometry">
     <rect>
-     <x>424</x>
+     <x>300</x>
      <y>560</y>
      <width>171</width>
      <height>23</height>
@@ -657,8 +654,8 @@
   <widget class="my_qlabel" name="lacolor">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>450</y>
+     <x>30</x>
+     <y>400</y>
      <width>31</width>
      <height>31</height>
     </rect>
@@ -723,7 +720,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>490</y>
+     <y>440</y>
      <width>42</width>
      <height>22</height>
     </rect>
@@ -759,11 +756,11 @@
    <extends>QLabel</extends>
    <header location="global">my_qlabel.h</header>
    <slots>
-    <signal>mouse_paint()</signal>
     <signal>mouse_Press()</signal>
     <signal>mouse_Move()</signal>
     <signal>mouse_Release()</signal>
     <signal>mouse_leave()</signal>
+    <signal>mouse_paint()</signal>
     <signal>key_Release(QKeyEvent*)</signal>
     <signal>key_Press(QKeyEvent*)</signal>
    </slots>

@@ -48,6 +48,7 @@ private:
     void MByan();
     int calsize();
     void ProssRun();
+    QColor coloralfa(QColor co,int alfa);
 
 private:
     Ui::wSbora *ui;
@@ -87,6 +88,7 @@ private slots:
     void on_mB_clear_clicked();
     void on_B_save_clicked();
     void on_B_hash_clicked();
+
 };
 
 #endif // WSBORA_H

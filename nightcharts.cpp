@@ -100,7 +100,6 @@ int Nightcharts::setLegendType(Nightcharts::legend_type t)
 int Nightcharts::setFont(QFont f)
 {
     this->font = f;
-
     return 0;
 }
 
@@ -115,6 +114,7 @@ int Nightcharts::draw(QPainter *painter)
 {
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(Qt::NoPen);
+    painter->setFont(font);
     if (this->ctype==Nightcharts::Pie)
     {
       pW = 0;
@@ -310,7 +310,9 @@ int Nightcharts::draw(QPainter *painter)
             painter->setPen(pen);
             painter->drawRect(cX+pDist+i*(pW + pDist),cY+cH,pW,-cH/100*pieces[i].pPerc-5);
             QString label = QString::number(pieces[i].pPerc)+"%";
+
             painter->setPen(Qt::SolidLine);
+
             painter->drawText(cX+pDist+i*(pW + pDist)+pW/2-painter->fontMetrics().width(label)/2,cY+cH-cH/100*pieces[i].pPerc-painter->fontMetrics().height()/2,label);
         }
         painter->setPen(Qt::SolidLine);
