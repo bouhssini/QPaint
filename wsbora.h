@@ -49,6 +49,7 @@ private:
     int calsize();
     void ProssRun();
     QColor coloralfa(QColor co,int alfa);
+    QColor testcolor();
 
 private:
     Ui::wSbora *ui;

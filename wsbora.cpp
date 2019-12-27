@@ -114,6 +114,17 @@ QColor wSbora::coloralfa(QColor co, int alfa)
     return co;
 }
 
+QColor wSbora::testcolor()
+{
+    QColor co;
+    if(ui->ch_alfa->checkState())
+        co = coloralfa(colorChoix,ui->val_alfa->value());
+    else
+        co = colorChoix;
+
+    return co;
+}
+
 int wSbora::calsize()
 {
     int sz = 1;
@@ -169,7 +180,7 @@ void wSbora::drawLine()
     pixsel.fill(Qt::transparent);
     QPainter painter;
     painter.begin(&pixsel);
-    painter.setPen(QPen(colorChoix,PenSize, Qt::SolidLine,   Qt::RoundCap,  Qt::RoundJoin));
+    painter.setPen(QPen(testcolor(),PenSize, Qt::SolidLine,   Qt::RoundCap,  Qt::RoundJoin));
     painter.drawLine(x,y ,ui->label->x, ui->label->y);
     damj();
 }
@@ -177,7 +188,7 @@ void wSbora::drawPen()
 {
     QPainter painter;
     painter.begin(&pix);
-    painter.setPen(QPen(colorChoix,PenSize ,
+    painter.setPen(QPen(testcolor(),PenSize ,
                         Qt::SolidLine,
                         Qt::RoundCap,
                         Qt::RoundJoin));
@@ -196,7 +207,7 @@ void wSbora::drawSel()
     if(bt_pres == "mB_sel")
         painter.setPen(QPen(Qt::white, 1, Qt::DashLine));
     else
-        painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
+        painter.setPen(QPen(testcolor(), PenSize, Qt::SolidLine));
 
    // painter.setBrush(Qt::NoBrush);
 
@@ -272,7 +283,7 @@ void wSbora::drawpip()
 
 void wSbora::drawFill()
 {
-    QColor switchColor = colorChoix;
+    QColor switchColor = testcolor();
     QImage img = pix.toImage();
 
     x = ui->label->x;
@@ -380,7 +391,7 @@ void wSbora::on_label_mouse_Release()
             tmp = QPixmap(sel_w+n,sel_h+n);
             tmp.fill(Qt::transparent);
             QPainter painter(&tmp);
-            painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
+            painter.setPen(QPen(testcolor(), PenSize, Qt::SolidLine));
             painter.setBrush(Qt::NoBrush);
             painter.drawRect(PenSize,PenSize,sel_w,sel_h);
             mv_x -=  calsize();
@@ -394,7 +405,7 @@ void wSbora::on_label_mouse_Release()
             tmp = pix.copy(sel_x,sel_y,sel_w+n,sel_h+n);
             tmp.fill(Qt::transparent);
             QPainter painter(&tmp);
-            painter.setPen(QPen(colorChoix, PenSize, Qt::SolidLine));
+            painter.setPen(QPen(testcolor(), PenSize, Qt::SolidLine));
             painter.setBrush(Qt::NoBrush);
             painter.drawEllipse(PenSize,PenSize,sel_w,sel_h);
             mv_x -=  calsize();
@@ -403,7 +414,7 @@ void wSbora::on_label_mouse_Release()
     }
     if (bt_pres == "mB_line" ){
             QPainter painter(&pix);
-            painter.setPen(QPen(colorChoix,PenSize, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+            painter.setPen(QPen(testcolor(),PenSize, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
             painter.drawLine(x,y ,ui->label->x, ui->label->y);
             pixsel = QPixmap(ui->label->width(),ui->label->height());
             pixsel.fill(Qt::transparent);
@@ -478,7 +489,7 @@ void wSbora::on_lacolor_mouse_Press()
 {
     QColorDialog d;
     QColor c = d.getColor(ColorChoix());
-    c = coloralfa(c,128);
+    //c = coloralfa(c,128);
     SetColorChoix(c);
 }
 
