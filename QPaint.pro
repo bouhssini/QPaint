@@ -16,17 +16,20 @@ SOURCES += main.cpp\
     nightcharts.cpp \
     my_qlabel.cpp \
     form.cpp \
-    wsbora.cpp
+    wsbora.cpp \
+    mainwindow.cpp
 
 HEADERS  += \
     nightcharts.h \
     my_qlabel.h \
     form.h \
-    wsbora.h
+    wsbora.h \
+    mainwindow.h
 
 FORMS    += \
     form.ui \
-    wsbora.ui
+    wsbora.ui \
+    mainwindow.ui
 
 RESOURCES += \
     res.qrc

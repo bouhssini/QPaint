@@ -87,8 +87,7 @@ private slots:
 
     void on_mB_mbyan_clicked();
     void on_mB_clear_clicked();
-    void on_B_save_clicked();
-    void on_B_hash_clicked();
+
 
 };
 

@@ -606,13 +606,3 @@ void wSbora::on_label_key_Release(QKeyEvent *e)
 }
 
 
-void wSbora::on_B_save_clicked()
-{
-    pix.save("gg."+imgType);
-    clearpix();
-}
-
-void wSbora::on_B_hash_clicked()
-{
-    ProssRun();
-}

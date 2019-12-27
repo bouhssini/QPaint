@@ -1,5 +1,6 @@
 #include "wsbora.h"
 #include "form.h"
+#include "mainwindow.h"
 #include <QApplication>
 #include <QTextCodec>
 int main(int argc, char *argv[])
@@ -9,7 +10,7 @@ int main(int argc, char *argv[])
    QApplication::setStyle("WindowsVista");
    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 #endif
-    wSbora w;
+    MainWindow w;
     w.show();
 
     return a.exec();
