@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1130</width>
-    <height>728</height>
+    <width>802</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,24 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="wSbora" name="sa" native="true"/>
+     <widget class="wSbora" name="wSa" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>784</width>
+        <height>580</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QCheckBox" name="checkBox">
+      <property name="text">
+       <string>CheckBox</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -25,7 +42,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1130</width>
+     <width>802</width>
      <height>21</height>
     </rect>
    </property>
@@ -38,6 +55,9 @@
    <extends>QWidget</extends>
    <header location="global">wsbora.h</header>
    <container>1</container>
+   <slots>
+    <signal>chimage(QByteArray,QString)</signal>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>

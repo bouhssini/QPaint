@@ -15,6 +15,10 @@ class wSbora : public QWidget
 public:
     explicit wSbora(QWidget *parent = 0);
     ~wSbora();
+    void Imageunzip(QByteArray bzip);
+
+    void Setvw(bool b);
+    inline bool Getvw(){return vw;}
 private:
     inline int tstVal(int x,int y,bool b)
     {
@@ -27,8 +31,16 @@ private:
         }
 
     }
+
+signals:
+    void chimage(QByteArray bzip,QString hMD5);
+
+
+private:
+
+    void InitPix();
     void damj();
-    void damjview(QByteArray bArray);
+    //void damjview(QByteArray bArray);
     void clearpix();
     void drawPen();
     void drawLine();
@@ -67,6 +79,8 @@ private:
     bool Dcopy;
     QPixmap page;
     int x_pg,y_pg;
+
+    bool vw;
 
 
 protected:

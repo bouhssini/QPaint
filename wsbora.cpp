@@ -10,7 +10,7 @@
 wSbora::wSbora(QWidget *parent): QWidget(parent),
     ui(new Ui::wSbora), sel_B(false), sel_M(false),Dcopy(false),
     colorBackground(Qt::transparent), PicBackground(":/images/blackborad.png"),
-    imgType("png"),PenSize(6), colorChoix(Qt::red)
+    imgType("png"),PenSize(6), colorChoix(Qt::red),vw(true)
 {
     ui->setupUi(this);
     connect(ui->mB_clip, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
@@ -24,14 +24,29 @@ wSbora::wSbora(QWidget *parent): QWidget(parent),
     connect(ui->mB_rec,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_sel,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_mv,   SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_page, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-
+    connect(ui->mB_page, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));  
 
     clearpix();
+    InitPix();
+
     bt_pres = "mB_pen";
     SetColorChoix(colorChoix);
     ui->spinBox->setValue(PenSize);
+    Setvw(vw);
+
 }
+
+void wSbora::InitPix()
+{
+    QPixmap pixtmp = QPixmap(ui->LaView->width(),ui->LaView->height());
+    pixtmp.fill(Qt::transparent);
+    QPainter painter(&pixtmp);
+    painter.setBrush(QBrush(PicBackground));
+    painter.drawRect(0, 0,pixtmp.width(),pixtmp.height());
+    painter.drawPixmap(0,0,pixtmp);
+    ui->LaView->setPixmap(pixtmp);
+}
+
 
 void wSbora::on_mB_toggled(bool)
 {
@@ -77,6 +92,16 @@ wSbora::~wSbora()
     delete ui;
 }
 
+void wSbora::Setvw(bool b)
+{
+    vw = b;
+
+    ui->label->setVisible(!vw);
+    ui->LaView->setVisible(vw);
+    ui->frmtools->setEnabled(!vw);
+}
+
+
 void wSbora::MByan()
 {
     /*
@@ -84,11 +109,11 @@ void wSbora::MByan()
     //pix.fill(colorBackground);//(Qt::white);//
     //pix.fill(Qt::transparent);
     */
+
     QPainter painter(&pix);
 
     Nightcharts PieChart;
     int alfa = 200;
-
 
     PieChart.setType(Nightcharts::Dpie);//{Histogramm,Pie,Dpie};
     PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical,Horizontal}
@@ -145,9 +170,9 @@ void wSbora::damj()
     ui->label->setPixmap(pixtmp);
 }
 
-void wSbora::damjview(QByteArray bArray)
+void wSbora::Imageunzip(QByteArray Byzip)
 {
-    QByteArray by = qUncompress(bArray);
+    QByteArray by = qUncompress(Byzip);
     QPixmap p;
     p.loadFromData(by,imgType.toStdString().c_str());
     QPixmap pixtmp = QPixmap(ui->LaView->width(),ui->LaView->height());
@@ -156,7 +181,6 @@ void wSbora::damjview(QByteArray bArray)
     painter.setBrush(QBrush(PicBackground));
     painter.drawRect(0, 0,p.width(),p.height());
     painter.drawPixmap(0,0,p);
-    //painter.drawPixmap(0,0,pixsel);
     ui->LaView->setPixmap(pixtmp);
 }
 
@@ -168,9 +192,9 @@ void wSbora::clearpix()
     tmp = pixsel;
     mv_x = 0;mv_y = 0;
     sel_M = false;sel_B = false;
-    damj();
     x=0;y=0;
     prss = false;
+    damj();
     ProssRun();
 }
 
@@ -429,6 +453,7 @@ void wSbora::on_label_mouse_Release()
      if(bt_pres == "mB_pip"){
          drawpip();
      }
+
     ProssRun();
 }
 void wSbora::on_label_mouse_leave()
@@ -453,13 +478,15 @@ void wSbora::ProssRun()
     pixtmp.save( &buffer, imgType.toStdString().c_str(),9 );
     //pix.loadFromData(bArray,imgType);
 
-    QByteArray by2 = qCompress(bArray,9); //qUncompress(by); //
+    QByteArray Byzip = qCompress(bArray,9); //qUncompress(by); //
 
     QByteArray result = QCryptographicHash::hash(bArray,QCryptographicHash::Md5);
-    ui->label_5->setText(QString::number(bArray.size())+"  :  "+QString::number(by2.size()));
+    ui->label_5->setText(QString::number(bArray.size())+"  :  "+QString::number(Byzip.size()));
     ui->label_6->setText(result.toHex());
     buffer.close();
-    damjview(by2);
+
+    emit chimage(Byzip,result.toHex());
+
 }
 
 

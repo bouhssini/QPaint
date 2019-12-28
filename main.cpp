@@ -1,8 +1,9 @@
-#include "wsbora.h"
-#include "form.h"
-#include "mainwindow.h"
+
+
 #include <QApplication>
 #include <QTextCodec>
+#include "mainwindow.h"
+#include "wsbora.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
