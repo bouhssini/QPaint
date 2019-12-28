@@ -26,5 +26,23 @@
         <file>images/page.jpg</file>
         <file>images/instruments-icons/page.png</file>
         <file>images/instruments-icons/clear.png</file>
+        <file>images/instruments-icons/color/01.png</file>
+        <file>images/instruments-icons/color/02.png</file>
+        <file>images/instruments-icons/color/03.png</file>
+        <file>images/instruments-icons/color/04.png</file>
+        <file>images/instruments-icons/color/05.png</file>
+        <file>images/instruments-icons/color/06.png</file>
+        <file>images/instruments-icons/color/07.png</file>
+        <file>images/instruments-icons/color/08.png</file>
+        <file>images/instruments-icons/color/09.png</file>
+        <file>images/instruments-icons/color/10.png</file>
+        <file>images/instruments-icons/color/11.png</file>
+        <file>images/instruments-icons/color/12.png</file>
+        <file>images/instruments-icons/color/13.png</file>
+        <file>images/instruments-icons/color/14.png</file>
+        <file>images/instruments-icons/color/15.png</file>
+        <file>images/instruments-icons/color/16.png</file>
+        <file>images/instruments-icons/color/17.png</file>
+        <file>images/instruments-icons/color/18.png</file>
     </qresource>
 </RCC>
