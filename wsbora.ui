@@ -6,36 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>623</height>
+    <width>692</width>
+    <height>514</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>784</width>
-    <height>580</height>
-   </size>
   </property>
   <widget class="my_qlabel" name="label">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>90</x>
      <y>0</y>
-     <width>691</width>
-     <height>541</height>
+     <width>600</width>
+     <height>511</height>
     </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>691</width>
-     <height>541</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>691</width>
-     <height>541</height>
-    </size>
    </property>
    <property name="cursor">
     <cursorShape>CrossCursor</cursorShape>
@@ -65,9 +47,9 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>540</y>
-     <width>101</width>
+     <x>90</x>
+     <y>720</y>
+     <width>201</width>
      <height>31</height>
     </rect>
    </property>
@@ -84,9 +66,9 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>540</y>
-     <width>491</width>
+     <x>310</x>
+     <y>720</y>
+     <width>291</width>
      <height>31</height>
     </rect>
    </property>
@@ -108,196 +90,32 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>101</width>
-     <height>621</height>
+     <width>81</width>
+     <height>511</height>
     </rect>
    </property>
    <property name="frameShape">
-    <enum>QFrame::Box</enum>
+    <enum>QFrame::NoFrame</enum>
    </property>
    <property name="frameShadow">
     <enum>QFrame::Sunken</enum>
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
     <property name="leftMargin">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="topMargin">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="spacing">
-     <number>2</number>
+     <number>0</number>
     </property>
-    <item row="0" column="0" colspan="2">
-     <widget class="QSpinBox" name="spinBox">
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="minimum">
-       <number>1</number>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="2">
-     <widget class="QSpinBox" name="val_alfa">
-      <property name="maximum">
-       <number>255</number>
-      </property>
-      <property name="singleStep">
-       <number>10</number>
-      </property>
-      <property name="value">
-       <number>80</number>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>13</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="my_qlabel" name="lacolor">
-        <property name="minimumSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="mouseTracking">
-         <bool>true</bool>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">
-</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>13</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="6" column="0" colspan="2">
-     <widget class="QLabel" name="label_4">
-      <property name="minimumSize">
-       <size>
-        <width>80</width>
-        <height>80</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>80</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Panel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="minimumSize">
-       <size>
-        <width>84</width>
-        <height>26</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>84</width>
-        <height>26</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Panel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <property name="text">
-       <string>pos</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0" colspan="2">
-     <widget class="QCheckBox" name="ch_alfa">
-      <property name="text">
-       <string>شفافية</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>0</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
     <item row="1" column="0" colspan="2">
      <widget class="QFrame" name="frame">
       <property name="minimumSize">
@@ -791,7 +609,142 @@
       </layout>
      </widget>
     </item>
+    <item row="4" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>13</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="my_qlabel" name="Lco18_2">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="res.qrc">:/images/instruments-icons/color/20.png</pixmap>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="my_qlabel" name="lacolor">
+        <property name="minimumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>13</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QSpinBox" name="val_alfa">
+      <property name="maximum">
+       <number>255</number>
+      </property>
+      <property name="singleStep">
+       <number>10</number>
+      </property>
+      <property name="value">
+       <number>80</number>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>10</width>
+        <height>0</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QCheckBox" name="ch_alfa">
+      <property name="text">
+       <string>شفافية</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="0" colspan="2">
+     <widget class="QSpinBox" name="spinBox">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="2">
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
        <number>2</number>
@@ -809,8 +762,14 @@
        <number>4</number>
       </property>
       <item row="5" column="1">
-       <widget class="QLabel" name="Lco02_13">
+       <widget class="my_qlabel" name="Lco15">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -828,8 +787,14 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="Lco02_2">
+       <widget class="my_qlabel" name="Lco03">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -847,8 +812,14 @@
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QLabel" name="Lco02_15">
+       <widget class="my_qlabel" name="Lco18">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -866,8 +837,14 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="Lco02_3">
+       <widget class="my_qlabel" name="Lco06">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -885,8 +862,14 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLabel" name="Lco02_9">
+       <widget class="my_qlabel" name="Lco12">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -904,8 +887,14 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLabel" name="Lco02_6">
+       <widget class="my_qlabel" name="Lco09">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -923,8 +912,14 @@
        </widget>
       </item>
       <item row="4" column="2">
-       <widget class="QLabel" name="Lco02_10">
+       <widget class="my_qlabel" name="Lco11">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -942,8 +937,14 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="Lco02_4">
+       <widget class="my_qlabel" name="Lco05">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -961,8 +962,14 @@
        </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QLabel" name="Lco02_7">
+       <widget class="my_qlabel" name="Lco08">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -980,8 +987,14 @@
        </widget>
       </item>
       <item row="4" column="4">
-       <widget class="QLabel" name="Lco02_11">
+       <widget class="my_qlabel" name="Lco10">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -999,8 +1012,14 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLabel" name="Lco01">
+       <widget class="my_qlabel" name="Lco02">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1018,8 +1037,14 @@
        </widget>
       </item>
       <item row="5" column="4">
-       <widget class="QLabel" name="Lco02_14">
+       <widget class="my_qlabel" name="Lco13">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1037,8 +1062,14 @@
        </widget>
       </item>
       <item row="6" column="2">
-       <widget class="QLabel" name="Lco02_16">
+       <widget class="my_qlabel" name="Lco17">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1056,8 +1087,14 @@
        </widget>
       </item>
       <item row="0" column="4">
-       <widget class="QLabel" name="Lco02">
+       <widget class="my_qlabel" name="Lco01">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1075,8 +1112,14 @@
        </widget>
       </item>
       <item row="5" column="2">
-       <widget class="QLabel" name="Lco02_12">
+       <widget class="my_qlabel" name="Lco14">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1094,8 +1137,14 @@
        </widget>
       </item>
       <item row="6" column="4">
-       <widget class="QLabel" name="Lco02_17">
+       <widget class="my_qlabel" name="Lco16">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1113,8 +1162,14 @@
        </widget>
       </item>
       <item row="3" column="4">
-       <widget class="QLabel" name="Lco02_8">
+       <widget class="my_qlabel" name="Lco07">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1132,8 +1187,14 @@
        </widget>
       </item>
       <item row="2" column="4">
-       <widget class="QLabel" name="Lco02_5">
+       <widget class="my_qlabel" name="Lco04">
         <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
@@ -1183,23 +1244,11 @@
   <widget class="my_qlabel" name="LaView">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>90</x>
      <y>0</y>
-     <width>691</width>
-     <height>541</height>
+     <width>600</width>
+     <height>511</height>
     </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>691</width>
-     <height>541</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>691</width>
-     <height>541</height>
-    </size>
    </property>
    <property name="frameShape">
     <enum>QFrame::Panel</enum>
@@ -1217,8 +1266,8 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>540</y>
+     <x>10</x>
+     <y>750</y>
      <width>84</width>
      <height>26</height>
     </rect>
@@ -1245,16 +1294,79 @@
     <string>stat</string>
    </property>
   </widget>
-  <zorder>label</zorder>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>750</y>
+     <width>82</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>82</width>
+     <height>26</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>84</width>
+     <height>26</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="text">
+    <string>pos</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>690</y>
+     <width>70</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>70</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>70</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+  </widget>
   <zorder>LaView</zorder>
+  <zorder>label</zorder>
   <zorder>label_5</zorder>
   <zorder>label_6</zorder>
   <zorder>frmtools</zorder>
-  <zorder>Lco01</zorder>
-  <zorder>Lco02</zorder>
-  <zorder>Lco02_2</zorder>
-  <zorder></zorder>
   <zorder>label_3</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_4</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

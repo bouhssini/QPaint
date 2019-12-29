@@ -24,7 +24,27 @@ wSbora::wSbora(QWidget *parent): QWidget(parent),
     connect(ui->mB_rec,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_sel,  SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
     connect(ui->mB_mv,   SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));
-    connect(ui->mB_page, SIGNAL(toggled(bool)), this, SLOT(on_mB_toggled(bool)));  
+    connect(ui->mB_page, SIGNAL(  toggled(bool)  ), this, SLOT(on_mB_toggled(bool)));
+
+    connect(ui->Lco01, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco02, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco03, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco04, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco05, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco06, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco07, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco08, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco09, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco10, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco11, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco12, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco13, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco14, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco15, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco16, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco17, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+    connect(ui->Lco18, SIGNAL( mouse_Press() ), this, SLOT(  on_color_Press()   ));
+
 
     clearpix();
     InitPix();
@@ -72,6 +92,18 @@ void wSbora::on_mB_toggled(bool)
    // ui->label->setCursor(cursorTarget);
 
     damj();
+}
+
+void wSbora::on_color_Press()
+{
+    QLabel* Bco = dynamic_cast<QLabel*>(sender());
+    qDebug() << Bco->objectName();
+
+    const QImage img = Bco->pixmap()->toImage();
+    QRgb pixel(img.pixel(10,10));
+    QColor tmpColor(pixel);
+    SetColorChoix(tmpColor);
+
 }
 void wSbora::on_mB_mbyan_clicked()
 {
@@ -512,11 +544,10 @@ void wSbora::DeleteSel()
     ProssRun();
 }
 
-void wSbora::on_lacolor_mouse_Press()
+void wSbora::on_Lco18_2_mouse_Press()
 {
     QColorDialog d;
     QColor c = d.getColor(ColorChoix());
-    //c = coloralfa(c,128);
     SetColorChoix(c);
 }
 
@@ -631,5 +662,7 @@ void wSbora::on_label_key_Release(QKeyEvent *e)
         break;
     }
 }
+
+
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
-    <height>662</height>
+    <width>706</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,12 +15,27 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <item row="0" column="0">
      <widget class="wSbora" name="wSa" native="true">
       <property name="minimumSize">
        <size>
-        <width>784</width>
-        <height>580</height>
+        <width>692</width>
+        <height>514</height>
        </size>
       </property>
      </widget>
@@ -42,7 +57,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>802</width>
+     <width>706</width>
      <height>21</height>
     </rect>
    </property>

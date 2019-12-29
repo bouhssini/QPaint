@@ -88,6 +88,7 @@ protected:
 
 private slots:
     void on_mB_toggled(bool);
+    void on_color_Press();
 
     void on_label_mouse_Press();
     void on_label_mouse_Move();
@@ -96,11 +97,11 @@ private slots:
     void on_label_key_Press(QKeyEvent *e);
     void on_label_key_Release(QKeyEvent *e);
 
-    void on_lacolor_mouse_Press();
     void on_spinBox_valueChanged(int arg1);
 
     void on_mB_mbyan_clicked();
     void on_mB_clear_clicked();
+    void on_Lco18_2_mouse_Press();
 
 
 };
