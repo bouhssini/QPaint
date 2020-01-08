@@ -35,6 +35,7 @@ private:
 private:
     QNetworkReply * reply;
     bool startUp;
+    QString hashMD5;
 };
 
 #endif // MAINWINDOW_H

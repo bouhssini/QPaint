@@ -33,6 +33,7 @@ void MainWindow::chimage(QByteArray bzip, QString hMD5)
 {
     if (!startUp){
         startUp = true;
+        hashMD5 = hMD5;
         //ui->wSa->Imageunzip(bzip);
         qDebug() << "bzip: " << bzip.size() ;
 
@@ -98,7 +99,7 @@ void MainWindow::uploadDone()
     QNetworkAccessManager *mgr;
     QNetworkRequest req;
 
-    QUrl url("http://66.70.190.62/web/upload/dwn.php?room=20");
+    QUrl url("http://66.70.190.62/web/upload/images/"+hashMD5);
 
     mgr = new QNetworkAccessManager(this);
     req.setUrl(url);
@@ -106,7 +107,11 @@ void MainWindow::uploadDone()
     QEventLoop loop;
     connect(rr, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
-    txt.append(rr->readAll());
-    re->deleteLater();
+    QByteArray bzip = rr->readAll();
+    nu = reply->attribute( QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (nu == 200){
+        ui->wSa->Imageunzip(bzip);
+    }
+    rr->deleteLater();
     mgr->deleteLater();
 }

@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>692</width>
-    <height>514</height>
+    <width>684</width>
+    <height>518</height>
    </rect>
   </property>
   <widget class="my_qlabel" name="label">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>80</x>
      <y>0</y>
      <width>600</width>
      <height>511</height>
@@ -1244,7 +1244,7 @@
   <widget class="my_qlabel" name="LaView">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>80</x>
      <y>0</y>
      <width>600</width>
      <height>511</height>
